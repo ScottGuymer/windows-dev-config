@@ -6,6 +6,15 @@ Configuration devMachineConfig
   
   Node "localhost"
   {
+    # Fix issue with MaxEnvelopeSize https://github.com/PowerShell/SharePointDsc/wiki/Error-Exceeded-the-configured-MaxEnvelopeSize-quota
+    Script ScriptExample {
+      SetScript  = {
+        Set-Item -Path WSMan:\localhost\MaxEnvelopeSizeKb -Value 2048
+      }
+      TestScript = {  (Get-Item WSMan:\localhost\MaxEnvelopeSizeKb).Value -eq 2048 }
+      GetScript  = { @{ Result = ((Get-Item WSMan:\localhost\MaxEnvelopeSizeKb).Value) } }
+    }
+
     LocalConfigurationManager {
       DebugMode = 'ForceModuleImport'
     }
@@ -32,30 +41,46 @@ Configuration devMachineConfig
       DependsOn   = "[cChocoInstaller]installChoco"
       AutoUpgrade = $True
     }	  
+    cChocoPackageInstaller installfiddler {
+      Name        = "fiddler"
+      DependsOn   = "[cChocoInstaller]installChoco"
+      AutoUpgrade = $True
+    }	 
+    cChocoPackageInstaller installmicrosoft-teams {
+      Name        = "microsoft-teams"
+      DependsOn   = "[cChocoInstaller]installChoco"
+      AutoUpgrade = $True
+    }	  
 
-    PackageManagementSource PSGallery
-    {
-        Ensure      = "Present"
-        Name        = "psgallery"
-        ProviderName= "PowerShellGet"
-        SourceLocation   = "https://www.powershellgallery.com/api/v2/"
-        InstallationPolicy ="Trusted"
+    cChocoPackageInstaller installdocker-desktop {
+      Name        = "docker-desktop"
+      DependsOn   = "[cChocoInstaller]installChoco"
+      AutoUpgrade = $True
+    }	  
+
+    
+
+
+    PackageManagementSource PSGallery {
+      Ensure             = "Present"
+      Name               = "psgallery"
+      ProviderName       = "PowerShellGet"
+      SourceLocation     = "https://www.powershellgallery.com/api/v2/"
+      InstallationPolicy = "Trusted"
     }
     
-    PackageManagement posh-git
-    {
-      Ensure               = "Present"
-      Name                 = "posh-git"
-      Source               = "PSGallery"
-      DependsOn            = "[PackageManagementSource]PSGallery"
+    PackageManagement posh-git {
+      Ensure    = "Present"
+      Name      = "posh-git"
+      Source    = "PSGallery"
+      DependsOn = "[PackageManagementSource]PSGallery"
     }
 
-    PackageManagement posh-docker
-    {
-      Ensure               = "Present"
-      Name                 = "posh-docker"
-      Source               = "PSGallery"
-      DependsOn            = "[PackageManagementSource]PSGallery"
+    PackageManagement posh-docker {
+      Ensure    = "Present"
+      Name      = "posh-docker"
+      Source    = "PSGallery"
+      DependsOn = "[PackageManagementSource]PSGallery"
     }
   }
 }
