@@ -57,10 +57,12 @@ Configuration devMachineConfig
       DependsOn   = "[cChocoInstaller]installChoco"
       AutoUpgrade = $True
     }	  
-
+    cChocoPackageInstaller installgpg4win {
+      Name        = "gpg4win"
+      DependsOn   = "[cChocoInstaller]installChoco"
+      AutoUpgrade = $True
+    }	  
     
-
-
     PackageManagementSource PSGallery {
       Ensure             = "Present"
       Name               = "psgallery"
