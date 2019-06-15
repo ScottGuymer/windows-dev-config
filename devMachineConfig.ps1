@@ -1,8 +1,8 @@
 
 Configuration devMachineConfig
 {
-  Import-DscResource -Module cChoco
-  Import-DscResource -Module PackageManagement -ModuleVersion 1.4.1
+  Import-DscResource -ModuleName cChoco -ModuleVersion 2.4.0.0
+  Import-DscResource -ModuleName  PackageManagement -ModuleVersion 1.4.1
   
   Node "localhost"
   {
@@ -89,4 +89,4 @@ Configuration devMachineConfig
 
 devMachineConfig
 
-Start-DscConfiguration .\devMachineConfig -wait -Verbose -force
+Start-DscConfiguration .\devMachineConfig -Wait -Verbose -Force
