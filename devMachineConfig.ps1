@@ -35,6 +35,7 @@ Configuration devMachineConfig
         "docker-desktop"
         "gpg4win"
         "keybase"
+        "terraform"
       ) 
       DependsOn = "[cChocoInstaller]installChoco"
     }
