@@ -11,7 +11,7 @@ Configuration devMachineConfig
       SetScript  = {
         Set-Item -Path WSMan:\localhost\MaxEnvelopeSizeKb -Value 2048
       }
-      TestScript = {  (Get-Item WSMan:\localhost\MaxEnvelopeSizeKb).Value -eq 2048 }
+      TestScript = { (Get-Item WSMan:\localhost\MaxEnvelopeSizeKb).Value -eq 2048 }
       GetScript  = { @{ Result = ((Get-Item WSMan:\localhost\MaxEnvelopeSizeKb).Value) } }
     }
 
@@ -21,47 +21,23 @@ Configuration devMachineConfig
     cChocoInstaller installChoco {
       InstallDir = "c:\choco"
     }
-    cChocoPackageInstaller installChrome {
-      Name        = "googlechrome"
-      DependsOn   = "[cChocoInstaller]installChoco"
-      AutoUpgrade = $True
-    }	  
-    cChocoPackageInstaller installvscode {
-      Name        = "vscode"
-      DependsOn   = "[cChocoInstaller]installChoco"
-      AutoUpgrade = $True
-    }	  
-    cChocoPackageInstaller installcmder {
-      Name        = "cmder"
-      DependsOn   = "[cChocoInstaller]installChoco"
-      AutoUpgrade = $True
-    }	  
-    cChocoPackageInstaller installgitkraken {
-      Name        = "gitkraken"
-      DependsOn   = "[cChocoInstaller]installChoco"
-      AutoUpgrade = $True
-    }	  
-    cChocoPackageInstaller installfiddler {
-      Name        = "fiddler"
-      DependsOn   = "[cChocoInstaller]installChoco"
-      AutoUpgrade = $True
-    }	 
-    cChocoPackageInstaller installmicrosoft-teams {
-      Name        = "microsoft-teams"
-      DependsOn   = "[cChocoInstaller]installChoco"
-      AutoUpgrade = $True
-    }	  
 
-    cChocoPackageInstaller installdocker-desktop {
-      Name        = "docker-desktop"
-      DependsOn   = "[cChocoInstaller]installChoco"
-      AutoUpgrade = $True
-    }	  
-    cChocoPackageInstaller installgpg4win {
-      Name        = "gpg4win"
-      DependsOn   = "[cChocoInstaller]installChoco"
-      AutoUpgrade = $True
-    }	  
+    cChocoPackageInstallerSet tools {
+      Ensure    = 'Present'
+      Name      = @(
+        "git"
+        "googlechrome"
+        "vscode"
+        "cmder"
+        "gitkraken"
+        "fiddler"
+        "microsoft-teams"
+        "docker-desktop"
+        "gpg4win"
+        "keybase"
+      ) 
+      DependsOn = "[cChocoInstaller]installChoco"
+    }
     
     PackageManagementSource PSGallery {
       Ensure             = "Present"
