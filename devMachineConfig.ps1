@@ -36,6 +36,9 @@ Configuration devMachineConfig
         "gpg4win"
         "keybase"
         "terraform"
+        "windirstat"
+        "azure-cli"
+        "kubernetes-cli"
       ) 
       DependsOn = "[cChocoInstaller]installChoco"
     }
