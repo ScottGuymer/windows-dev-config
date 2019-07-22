@@ -39,6 +39,7 @@ Configuration devMachineConfig
         "windirstat"
         "azure-cli"
         "kubernetes-cli"
+        "msbuild-structured-log-viewer"
       ) 
       DependsOn = "[cChocoInstaller]installChoco"
     }
