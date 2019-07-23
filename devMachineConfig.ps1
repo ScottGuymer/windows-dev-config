@@ -4,6 +4,7 @@ Configuration devMachineConfig
   Import-DscResource -ModuleName cChoco -ModuleVersion 2.4.0.0
   Import-DscResource -ModuleName  PackageManagement -ModuleVersion 1.4.1
   Import-DscResource -ModuleName cGit -ModuleVersion 0.1.1
+  Import-DscResource -ModuleName GraniResource -ModuleVersion 3.7.11.0
   
   Node "localhost"
   {
@@ -68,17 +69,25 @@ Configuration devMachineConfig
     }
 
     File code {
-      Type = 'Directory'
+      Type            = 'Directory'
       DestinationPath = 'C:\code'
-      Ensure = "Present"
+      Ensure          = "Present"
     }
 
     cGitRepository powershellProfile {
       Ensure        = "Present"
       Repository    = "https://github.com/ScottGuymer/powershell-profile.git"
       BaseDirectory = "C:\code\"
-      DependsOn = "[File]code"
-    }    
+      DependsOn     = "[File]code"
+    }
+    
+    $documents = [Environment]::GetFolderPath("MyDocuments")    
+    cSymbolicLink powershellProfileLink {
+      Ensure          = "Present"
+      SourcePath      = "C:\code\powershell-profile\"
+      DestinationPath = "$documents\WindowsPowerShell\"
+      DependsOn       = "[cGitRepository]powershellProfile"
+    }
   }
 }
 
