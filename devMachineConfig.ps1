@@ -68,6 +68,13 @@ Configuration devMachineConfig
       DependsOn = "[PackageManagementSource]PSGallery"
     }
 
+    PackageManagement oh-my-posh {
+      Ensure    = "Present"
+      Name      = "oh-my-posh"
+      Source    = "PSGallery"
+      DependsOn = "[PackageManagementSource]PSGallery"
+    }
+
     File code {
       Type            = 'Directory'
       DestinationPath = 'C:\code'
