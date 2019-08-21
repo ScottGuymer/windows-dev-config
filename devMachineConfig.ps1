@@ -27,21 +27,24 @@ Configuration devMachineConfig
     cChocoPackageInstallerSet tools {
       Ensure    = 'Present'
       Name      = @(
-        "git"
-        "googlechrome"
-        "vscode"
+        "azure-cli"
+        "cloudfoundry-cli"
         "cmder"
-        "gitkraken"
-        "fiddler"
-        "microsoft-teams"
         "docker-desktop"
+        "fiddler"
+        "git"
+        "gitkraken"
+        "googlechrome"
         "gpg4win"
         "keybase"
-        "terraform"
-        "windirstat"
-        "azure-cli"
         "kubernetes-cli"
+        "kubernetes-helm"
+        "microsoft-teams"
         "msbuild-structured-log-viewer"
+        "openssl.light"
+        "terraform"
+        "vscode"
+        "windirstat"
       ) 
       DependsOn = "[cChocoInstaller]installChoco"
     }
