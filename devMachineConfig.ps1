@@ -45,6 +45,7 @@ Configuration devMachineConfig
         "terraform"
         "vscode"
         "windirstat"
+        "nvm"
       ) 
       DependsOn = "[cChocoInstaller]installChoco"
     }
@@ -91,13 +92,13 @@ Configuration devMachineConfig
       DependsOn     = "[File]code"
     }
     
-    $documents = [Environment]::GetFolderPath("MyDocuments")    
-    cSymbolicLink powershellProfileLink {
-      Ensure          = "Present"
-      SourcePath      = "C:\code\powershell-profile\"
-      DestinationPath = "$documents\WindowsPowerShell\"
-      DependsOn       = "[cGitRepository]powershellProfile"
-    }
+    # $documents = [Environment]::GetFolderPath("MyDocuments")    
+    # cSymbolicLink powershellProfileLink {
+    #   Ensure          = "Present"
+    #   SourcePath      = "C:\code\powershell-profile\"
+    #   DestinationPath = "$documents\WindowsPowerShell\"
+    #   DependsOn       = "[cGitRepository]powershellProfile"
+    # }
   }
 }
 
