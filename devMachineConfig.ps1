@@ -41,11 +41,12 @@ Configuration devMachineConfig
         "kubernetes-helm"
         "microsoft-teams"
         "msbuild-structured-log-viewer"
+        "nvm"
         "openssl.light"
         "terraform"
         "vscode"
         "windirstat"
-        "nvm"
+        "yarn"
       ) 
       DependsOn = "[cChocoInstaller]installChoco"
     }
