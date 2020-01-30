@@ -43,6 +43,7 @@ Configuration devMachineConfig
         "msbuild-structured-log-viewer"
         "nvm"
         "openssl.light"
+        "postman"
         "terraform"
         "vscode"
         "windirstat"
