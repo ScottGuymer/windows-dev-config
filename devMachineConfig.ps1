@@ -2,7 +2,7 @@
 Configuration devMachineConfig
 {
   Import-DscResource -ModuleName cChoco -ModuleVersion 2.4.0.0
-  Import-DscResource -ModuleName  PackageManagement -ModuleVersion 1.4.1
+  Import-DscResource -ModuleName PackageManagement -ModuleVersion 1.4.1
   Import-DscResource -ModuleName cGit -ModuleVersion 0.1.1
   Import-DscResource -ModuleName GraniResource -ModuleVersion 3.7.11.0
   
@@ -42,8 +42,8 @@ Configuration devMachineConfig
         "microsoft-teams"
         "msbuild-structured-log-viewer"
         "nvm"
-        "openssl.light"
         "postman"
+        "openssl.light"
         "terraform"
         "vscode"
         "windirstat"
@@ -94,13 +94,20 @@ Configuration devMachineConfig
       DependsOn     = "[File]code"
     }
     
-    # $documents = [Environment]::GetFolderPath("MyDocuments")    
-    # cSymbolicLink powershellProfileLink {
-    #   Ensure          = "Present"
-    #   SourcePath      = "C:\code\powershell-profile\"
-    #   DestinationPath = "$documents\WindowsPowerShell\"
-    #   DependsOn       = "[cGitRepository]powershellProfile"
-    # }
+    $documents = [Environment]::GetFolderPath("MyDocuments")    
+    cSymbolicLink windowsPowershellProfileLink {
+      Ensure          = "Present"
+      SourcePath      = "C:\code\powershell-profile\"
+      DestinationPath = "$documents\WindowsPowerShell\"
+      DependsOn       = "[cGitRepository]powershellProfile"
+    }
+
+    cSymbolicLink powershellProfileLink {
+      Ensure          = "Present"
+      SourcePath      = "C:\code\powershell-profile\"
+      DestinationPath = "$documents\PowerShell\"
+      DependsOn       = "[cGitRepository]powershellProfile"
+    }
   }
 }
 
